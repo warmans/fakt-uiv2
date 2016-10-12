@@ -1,0 +1,40 @@
+$spacer:   20px;
+$grid-gutter-width: 20px;
+
+$border-radius: 0rem;
+$border-radius-lg: 0rem;
+$border-radius-sm: 0rem;
+
+$body-bg:    #F5F8FA;
+//$body-color: #CCC;
+$heading-bg: #222;
+
+$brand-primary: #B2543D ;
+
+$card-cap-bg: #fff;
+
+@import '../node_modules/bootstrap/scss/bootstrap';
+
+.navbar-branded {
+  background-color: $brand-primary;
+}
+
+.container-fluid {
+  padding: $spacer 5px;
+}
+
+.card-block {
+  padding: 0;
+}
+
+.card-text {
+  padding: $spacer;
+}
+
+.card-header {
+  padding: 5px 10px;
+}
+
+.card .table {
+  margin-bottom: 0px;
+}
