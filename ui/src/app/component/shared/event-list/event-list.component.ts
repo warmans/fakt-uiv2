@@ -9,12 +9,16 @@ import { EventService } from './../../../service/event/event.service';
 })
 export class EventListComponent implements OnInit {
 
-  private events: Event[];
+  events: Event[];
 
   constructor(private eventService: EventService) { }
 
   ngOnInit() {
-    this.eventService.getEvents(new Map()).then(events => this.events = events);
+    this.eventService.getEvents({}).then(events => this.events = events);
+  }
+
+  debugDump(ev: Event): void {
+    console.log(ev)
   }
 
 }

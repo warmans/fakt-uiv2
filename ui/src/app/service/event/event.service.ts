@@ -9,13 +9,16 @@ export class EventService {
 
   constructor(private http: Http) { }
 
-  getEvents(query: Map<string, string>): Promise<Event[]> {
+  getEvents(query: {[key: string]: string}): Promise<Event[]> {
+
     let params = new URLSearchParams();
-    query.forEach((value, key) => { params.set(key, value) });
+    for (var key in query) {
+      params.set(key, query[key])
+    }
 
     return this.http.get('/api/v1/event', { search: params })
       .toPromise()
-      .then(response => response.json().payload as Event[])
+      .then(response => Event.fromObjects(response.json().payload))
       .catch(this.handleError);
   }
 

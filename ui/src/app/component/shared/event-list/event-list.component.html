@@ -1,18 +1,28 @@
-<div class="card" *ngFor="let event of events">
-
-	<div class="card-header">
-		{{event.type}} at {{event.venue.name}}
-	</div>
-	<div class="card-block">
-		<p class="card-text">{{event.description}}</p>
+<div class="card" *ngFor="let ev of events">
+  <div class="card-header">
+	  {{ev.type}} at {{ev.venue.name}}
+  </div>
+	<div class="card-block">		
+		<div class="card-text">
+			<div class="media">
+				<a class="media-right" href="#" *ngIf="ev.imageURL">
+					<img class="event-image" [style.background-image]="ev.imageURL" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="/>
+				</a>
+				<div class="media-body">
+					<div><strong>Type:</strong><br /> {{ev.type}}</div>
+					<div><strong>Date:</strong><br /> {{ev.date}}</div>
+					<div><strong>Venue:</strong><br /> {{ev.venue.name}} ({{ev.venue.address}})</div>
+				</div>
+			</div>
+			<div><strong>Description:</strong><br /> {{ev.description | shorten:256}}</div>				
+		</div>
 	</div>
 	<div class="table-responsive">
 		<table class="table table-bordered">
 			<tbody>
-				<tr *ngFor="let performer of event.performer">
+				<tr *ngFor="let performer of ev.performer">
 					<td>{{performer.name}}</td>
 					<td>{{performer.genre}}</td>
-					<td class="hidden-xs-down">{{performer.info | slice:0:512}}</td>
 				</tr>
 			</tbody>
 		</table>

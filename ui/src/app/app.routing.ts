@@ -5,11 +5,6 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 const appRoutes: Routes = [
     {
         path: '',
-        redirectTo: '/dash',
-        pathMatch: 'full'
-    },
-    {
-        path: 'dash',
         component: DashboardComponent
     }
 ];

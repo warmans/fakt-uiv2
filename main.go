@@ -3,13 +3,14 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/NYTimes/gziphandler"
 	"log"
 	"net/http"
 	"net/http/httputil"
 	"net/url"
 	"os"
 	"time"
+
+	"github.com/NYTimes/gziphandler"
 )
 
 const Version = "0.0.0"
@@ -33,7 +34,7 @@ func main() {
 
 	//routing
 	mux := http.NewServeMux()
-	mux.Handle("/ui/", http.RedirectHandler("/", http.StatusMovedPermanently))
+	mux.Handle("/dist/", http.RedirectHandler("/", http.StatusMovedPermanently))
 	mux.Handle("/", http.StripPrefix("/", gziphandler.GzipHandler(staticFileServer)))
 
 	//API proxy
