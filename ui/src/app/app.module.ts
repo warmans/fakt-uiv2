@@ -9,6 +9,8 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { EventListComponent } from './component/shared/event-list/event-list.component';
 import { EventService } from './service/event/event.service';
 import { ShortenText } from './pipe/shorten-text.pipe';
+import { VenuesComponent } from './component/venues/venues.component';
+import { VenueListComponent } from './component/shared/venue-list/venue-list.component';
 
 
 @NgModule({
@@ -16,7 +18,10 @@ import { ShortenText } from './pipe/shorten-text.pipe';
     AppComponent,
     DashboardComponent,
     EventListComponent,
-    ShortenText
+    ShortenText,
+    VenuesComponent,
+    VenueListComponent
+    
   ],
   imports: [
     BrowserModule,

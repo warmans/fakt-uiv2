@@ -3,9 +3,7 @@ $grid-gutter-width: 20px;
 
 $font-size-root: 14px !default;
 
-$border-radius: 0rem;
-$border-radius-lg: 0rem;
-$border-radius-sm: 0rem;
+$navbar-border-radius: 0px;
 
 $body-bg:    #F5F8FA;
 //$body-color: #CCC;
@@ -15,7 +13,24 @@ $brand-primary: #B2543D ;
 
 $card-cap-bg: #fff;
 
+
 @import '../node_modules/bootstrap/scss/bootstrap';
+
+@mixin box-shadow($top, $left, $blur, $size, $color, $inset: false) {
+    @if $inset {
+        -webkit-box-shadow:inset $top $left $blur $size $color;
+        -moz-box-shadow:inset $top $left $blur $size $color;
+        box-shadow:inset $top $left $blur $size $color;
+    } @else {
+        -webkit-box-shadow: $top $left $blur $size $color;
+        -moz-box-shadow: $top $left $blur $size $color;
+        box-shadow: $top $left $blur $size $color;
+    }
+}
+
+.navbar-brand {
+  font-weight: bold;
+}
 
 .navbar-branded {
   background-color: $brand-primary;
@@ -31,10 +46,6 @@ $card-cap-bg: #fff;
 
 .card-text {
   padding: $spacer;
-}
-
-.card-header {
-  font-weight: bold;
 }
 
 .card .table {
