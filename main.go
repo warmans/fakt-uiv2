@@ -20,7 +20,7 @@ func main() {
 
 	bind := flag.String("server.bind", ":1313", "Web server bind address")
 	ver := flag.Bool("v", false, "Print version and exit")
-	faktAPIHost := flag.String("api.fakt.host", "http://localhost:8080/api/v1", "Proxy api to avoid CORS crap")
+	faktAPIHost := flag.String("api.fakt.host", "http://localhost:8080", "Proxy api to avoid CORS crap")
 
 	flag.Parse()
 
@@ -45,7 +45,11 @@ func main() {
 	log.Printf("Proxying API calls to: %s", apiHostParsed)
 	mux.Handle(
 		"/api/v1/",
-		http.StripPrefix("/api/v1/", httputil.NewSingleHostReverseProxy(apiHostParsed)),
+		httputil.NewSingleHostReverseProxy(apiHostParsed),
+	)
+	mux.Handle(
+		"/static/",
+		httputil.NewSingleHostReverseProxy(apiHostParsed),
 	)
 
 	for true {
