@@ -13,6 +13,12 @@ $brand-primary: #B2543D ;
 
 $card-cap-bg: #fff;
 
+$font-size-h1: 2rem;
+$font-size-h2: 1.5rem;
+$font-size-h3: 1.25rem;
+$font-size-h4: 1rem;
+$font-size-h5: 1rem;
+$font-size-h6: 1rem;
 
 @import '../node_modules/bootstrap/scss/bootstrap';
 
@@ -34,6 +40,11 @@ $card-cap-bg: #fff;
 
 .navbar-branded {
   background-color: $brand-primary;
+}
+
+.navbar .nav-item {
+  font-weight: bold;
+  margin: 0px 10px;
 }
 
 .container-fluid {

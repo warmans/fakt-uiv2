@@ -1,0 +1,5 @@
+<div class="btn-group btn-group-sm" role="group">
+    <a *ngFor="let tag of tagState; let i = index;" (click)="toggleTag(i, tag)" class="btn btn-xs btn-default">
+        <i class="fa {{tag.icon}}"></i> {{tag.count}}
+    </a>
+</div>
