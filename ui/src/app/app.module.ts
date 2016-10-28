@@ -10,11 +10,11 @@ import { AppComponent } from './component/app/app.component';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { EventListComponent } from './component/shared/event-list/event-list.component';
 import { EventService } from './service/event/event.service';
+import { UserService } from './service/user/user.service';
 import { ShortenText } from './pipe/shorten-text.pipe';
 import { VenuesComponent } from './component/venues/venues.component';
 import { VenueListComponent } from './component/shared/venue-list/venue-list.component';
-import { UtagsComponent } from './component/shared/utags/utags/utags.component';
-
+import { UtagsComponent } from './component/shared/utags/utags.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,7 @@ import { UtagsComponent } from './component/shared/utags/utags/utags.component';
     MomentModule,
     routing
   ],
-  providers: [EventService],
+  providers: [EventService, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

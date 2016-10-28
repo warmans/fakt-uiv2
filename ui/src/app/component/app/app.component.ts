@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { UserService } from './../../service/user/user.service';
+import { User } from './../../entity/user';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app works!';
+
+  constructor(private userService: UserService) { }
+
+  me: User
+
+  ngOnInit() {
+    this.userService.getMe().then(me => this.me = me)
+  }
+
 }

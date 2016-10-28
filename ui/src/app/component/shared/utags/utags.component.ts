@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
-import { Utag } from '../../../../entity/utag'
+import { Utag } from '../../../entity/utag'
 import { MomentModule } from 'angular2-moment';
 
 class DisplayTag {
