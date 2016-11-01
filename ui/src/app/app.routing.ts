@@ -2,6 +2,7 @@ import { ModuleWithProviders } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { VenuesComponent } from './component/venues/venues.component';
+import { LoginComponent } from './component/login/login.component';
 
 const appRoutes: Routes = [
     {
@@ -16,6 +17,9 @@ const appRoutes: Routes = [
     }, {
         path: 'venues',
         component: VenuesComponent,
+    }, {
+        path: 'login',
+        component: LoginComponent,
     }
 ];
 

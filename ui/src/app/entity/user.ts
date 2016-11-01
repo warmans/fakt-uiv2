@@ -3,6 +3,9 @@ export class User {
     username: string
 
     static fromObject(data: Object): User {
+        if (data == null) {
+            return null;
+        }
         let u = new User();
         for (var key in data) {
             u[key] = data[key];

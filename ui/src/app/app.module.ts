@@ -15,6 +15,7 @@ import { ShortenText } from './pipe/shorten-text.pipe';
 import { VenuesComponent } from './component/venues/venues.component';
 import { VenueListComponent } from './component/shared/venue-list/venue-list.component';
 import { UtagsComponent } from './component/shared/utags/utags.component';
+import { LoginComponent } from './component/login/login.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { UtagsComponent } from './component/shared/utags/utags.component';
     VenuesComponent,
     VenueListComponent,
     UtagsComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

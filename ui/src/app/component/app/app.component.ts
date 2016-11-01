@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from './../../service/user/user.service';
 import { User } from './../../entity/user';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,10 @@ export class AppComponent {
   me: User
 
   ngOnInit() {
-    this.userService.getMe().then(me => this.me = me)
+    this.userService.refreshMe()
   }
 
+  logout() {
+    this.userService.logout();
+  }
 }

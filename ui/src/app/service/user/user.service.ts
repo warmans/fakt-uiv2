@@ -1,25 +1,37 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { User } from './../../entity/user';
 import { Http } from '@angular/http';
 
 @Injectable()
-export class UserService {
+export class UserService implements OnInit {
 
   constructor(private http: Http) { }
 
-  private me: User
+  me: User
 
-  getMe(): Promise<User> {
+  ngOnInit() {
+    this.refreshMe();
+  }
 
+  setMe(user: User) {
+    this.me = user;
+  }
+
+  refreshMe() {
     return this.http.get('/api/v1/me')
       .toPromise()
-      .then(function (response) { this.me = User.fromObject(response.json().payload); return this.me })
-      .catch(this.handleError);
+      .then(response => this.me = User.fromObject(response.json().payload))
+      .catch(function (error) {
+        return Promise.reject(error.message || error);
+      });
   }
 
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
+  logout() {
+    this.http.post('/api/v1/logout', null)
+      .toPromise()
+      .then(response => this.me = null)
+      .catch(function (error) {
+        return Promise.reject(error.message || error);
+      });
   }
-
 }

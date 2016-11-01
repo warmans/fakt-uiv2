@@ -8,9 +8,11 @@
 				</a>
 			</div>
 			<div class="media-body">
-				<div class="pull-right"><app-utags [(tags)]="ev.utag" [save]="'/api/v1/event/'+ev.id+'/tag'"></app-utags></div>
+				<div class="pull-right">
+					<app-utags [(tags)]="ev.utag" [save]="'/api/v1/event/'+ev.id+'/tag'" [enabled]="userService.me != null"></app-utags>
+				</div>
 				<h2 class="text-primary">{{ev.type}} at {{ev.venue.name}}</h2>
-				<div><strong> <i class="fa fa-calendar-o" aria-hidden="true"></i> {{ev.date | amCalendar}} <span class="text-muted">({{ev.date | amTimeAgo}})</span></strong></div>
+				<div><i class="fa fa-calendar-o" aria-hidden="true"></i> {{ev.date | amCalendar}} <span class="text-muted">({{ev.date | amTimeAgo}})</span></div>
 			</div>
 		</div>
 	</div>

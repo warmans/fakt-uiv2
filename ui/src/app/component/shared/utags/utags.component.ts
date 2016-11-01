@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import { Utag } from '../../../entity/utag'
 import { MomentModule } from 'angular2-moment';
+import { inject } from '@angular/core/testing';
+import { UserService } from './../../../service/user/user.service';
 
 class DisplayTag {
   value: string
@@ -24,9 +26,12 @@ export class UtagsComponent implements OnInit {
   @Input()
   tags: Utag[];
 
+  @Input()
+  enabled: boolean
+
   tagState: DisplayTag[];
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private userService: UserService) { }
 
   ngOnInit() {
     this.tagState = [
@@ -39,7 +44,9 @@ export class UtagsComponent implements OnInit {
       for (let availTag of this.tagState) {
         if (storedTag.tags.indexOf(availTag.value) != -1) {
           availTag.count++;
-          //todo "if current user is same as storedTag.user clicked is true"
+          if (storedTag.username == this.userService.me.username) {
+            availTag.clicked = true;
+          }
         }
         availTag.users.push(storedTag.username);
       }
@@ -48,7 +55,9 @@ export class UtagsComponent implements OnInit {
 
   toggleTag(key: number, tag: DisplayTag) {
 
-    console.log(key, tag)
+    if (!this.enabled) {
+      return //don't accept clicks if disabled 
+    }
 
     if (this.save == "") {
       console.log("no save url was defined for this tags component");
@@ -70,16 +79,13 @@ export class UtagsComponent implements OnInit {
 
     //store the new data
     this.http
-      .request(this.save, { method: syncMethod })
+      .request(this.save, { method: syncMethod, body: [tag.value] })
       .toPromise()
-      .then(res => this.tags = res.json().data.payload)
-      .catch(this.handleError);
+      .then(res => this.tags = res.json().payload)
+      .catch(function (error) {
+        console.log("save failed", error);
+        return Promise.reject(error.message || error);
+      });
 
   }
-
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
-  }
-
 }
