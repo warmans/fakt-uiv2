@@ -1,0 +1,32 @@
+<div class="row" style="margin-bottom: 15px;">
+  <div class="col-lg-6">
+    <div class="input-group">
+      <div class="input-group-btn">
+        <!--prefix -->
+        <div class="btn btn-secondary">Only show events</div>
+        <!--current selection -->
+        <div class="btn-group" *ngFor="let selected of filterSelection; let i = index;" dropdown keyboardNav="true">
+          <button id="simple-btn-keyboard-nav" type="button" class="btn btn-secondary dropdown-toggle" dropdownToggle>
+            {{i == 0 ? "" : "and "}} {{selected.description}} {{selected.value || "whenever"}}
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav" *ngIf="selected.isSingleChoice">
+            <li *ngFor="let choice of selected.valueChoices;" role="menuitem" (click)="selected.value = choice"><span class="dropdown-item">{{choice}}</span></li>
+            <li (click)="removeFilter(i)"><span class="dropdown-item">don't care</span></li>
+          </ul>
+        </div>
+        <!-- add filters -->
+        <div class="btn-group" dropdown keyboardNav="true" *ngIf="filters.length > 0">
+          <button id="simple-btn-keyboard-nav" type="button" class="btn btn-secondary dropdown-toggle" dropdownToggle>
+            and <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav">
+            <li *ngFor="let f of filters; let i = index;" role="menuitem" (click)="addFilter(i)"><span class="dropdown-item">{{f.name}}</span></li>
+          </ul>
+        </div>
+        <div class="btn btn-secondary">containing Text</div>
+      </div>
+      
+      <input type="text" class="form-control" aria-label="Text input with segmented button dropdown">
+    </div>
+  </div>
