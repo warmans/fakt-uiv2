@@ -1,5 +1,5 @@
 <div class="row" style="margin-bottom: 15px;">
-  <div class="col-lg-6">
+  <div class="col-lg-12">
     <div class="input-group">
       <div class="input-group-btn">
         <!--prefix -->
@@ -18,7 +18,7 @@
         <!-- add filters -->
         <div class="btn-group" dropdown keyboardNav="true" *ngIf="filters.length > 0">
           <button id="simple-btn-keyboard-nav" type="button" class="btn btn-secondary dropdown-toggle" dropdownToggle>
-            and <span class="caret"></span>
+            <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav">
             <li *ngFor="let f of filters; let i = index;" role="menuitem" (click)="addFilter(i)"><span class="dropdown-item">{{f.name}}</span></li>
