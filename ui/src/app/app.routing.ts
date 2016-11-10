@@ -4,7 +4,7 @@ import { DashboardComponent } from './component/dashboard/dashboard.component';
 import { VenuesComponent } from './component/venues/venues.component';
 import { LoginComponent } from './component/login/login.component';
 
-const appRoutes: Routes = [
+export const appRoutes: Routes = [
     {
         path: '',
         redirectTo: '/browse',

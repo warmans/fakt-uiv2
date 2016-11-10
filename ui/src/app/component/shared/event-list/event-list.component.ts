@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Event } from '../../../entity/event'
+import { Event } from '../../../entity/event';
 import { EventService } from './../../../service/event/event.service';
 import { UserService } from './../../../service/user/user.service';
-import { User } from './../../../entity/user';
 
 @Component({
   selector: 'app-event-list',
@@ -14,7 +13,7 @@ export class EventListComponent implements OnInit {
   events: Event[];
 
   @Input()
-  query: { [key: string]: string }
+  query: { [key: string]: string };
 
   constructor(private eventService: EventService, private userService: UserService) { }
 

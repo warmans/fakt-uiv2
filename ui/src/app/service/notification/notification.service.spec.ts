@@ -1,15 +1,15 @@
 /* tslint:disable:no-unused-variable */
 
 import { TestBed, async, inject } from '@angular/core/testing';
-import { UserService } from './user.service';
+import { NotificationService } from './notification.service';
 import { MockBackend } from '@angular/http/testing';
 import { BaseRequestOptions, Http, HttpModule } from '@angular/http';
 
-describe('Service: User', () => {
+describe('Service: Notification', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
-        UserService,
+        NotificationService,
         MockBackend,
         BaseRequestOptions,
         {
@@ -24,7 +24,7 @@ describe('Service: User', () => {
     });
   });
 
-  it('should ...', inject([UserService, MockBackend], (service: UserService, mockBackend: MockBackend) => {
+  it('should construct', inject([NotificationService, MockBackend], (service: NotificationService, mockBackend: MockBackend) => {
     expect(service).toBeDefined();
   }));
 });

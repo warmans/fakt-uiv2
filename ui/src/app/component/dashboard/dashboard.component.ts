@@ -7,9 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  constructor() { }
+  eventQuery: { [key: string]: string };
 
-  eventQuery: { [key: string]: string }
+  constructor() { }
 
   ngOnInit() {
   }

@@ -1,4 +1,4 @@
 export class Utag {
-    username:   string
-    tags:   string[]
+    username:   string;
+    tags:   string[];
 }

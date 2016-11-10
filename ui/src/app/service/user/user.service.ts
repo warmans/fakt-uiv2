@@ -5,9 +5,9 @@ import { Http } from '@angular/http';
 @Injectable()
 export class UserService implements OnInit {
 
-  constructor(private http: Http) { }
+  me: User;
 
-  me: User
+  constructor(private http: Http) { }
 
   ngOnInit() {
     this.refreshMe();

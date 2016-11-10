@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from './../../service/user/user.service';
 import { User } from './../../entity/user';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +9,12 @@ import { Location } from '@angular/common';
 })
 export class AppComponent {
 
+  me: User;
+
   constructor(private userService: UserService) { }
 
-  me: User
-
   ngOnInit() {
-    this.userService.refreshMe()
+    this.userService.refreshMe();
   }
 
   logout() {
