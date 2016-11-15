@@ -1,39 +1,73 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, enableProdMode } from '@angular/core';
+import { inject } from '@angular/core/testing';
+import { element } from 'protractor';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-event-search',
   templateUrl: './event-search.component.html',
-  styleUrls: ['./event-search.component.scss']
+  styleUrls: ['./event-search.component.scss'],
 })
 export class EventSearchComponent implements OnInit {
 
-  @Input()
-  query: { [key: string]: string };
+  keyword: string;
 
+  
+  query: { [key: string]: string };  
+
+  //unselected filters (possible filters) 
+  availableFilters: Filter[] = [];
+
+  //selected filters
   filters: Filter[] = [];
-  filterSelection: Filter[] = [];
+
+  private matrixParameterValue: string;
+  private matrixSub: any;
+ 
+  constructor(private route: ActivatedRoute, private router: Router) {
+
+  }
 
   ngOnInit() {
-    this.filters = [
-      Filter.NewFilter('happening...', 'date_range', 'happening', ['today', 'tomorrow', 'this weekend', 'this week'], true, 'this weekend'),
-      Filter.NewFilter('of type...', 'types', 'of type', ['concert'], true, 'concert')
+    this.availableFilters = [
+      Filter.NewFilter('happening...', 'date_relative', 'happening', ['today', 'tomorrow', 'this weekend', 'this week'], true, 'this weekend'),
+      Filter.NewFilter('of type...', 'type', 'of type', ['concert'], true, 'concert')
     ];
+
+    //todo:I guess this needs to be updated to propagate URI changes back to component 
+    let that = this;
+    this.route.snapshot.params["matrixParameterName"];
+    this.route.params.subscribe(function(matrixParams) {
+      that.matrixParameterValue = matrixParams["matrixParameterName"];
+      console.log(matrixParams["matrixParameterName"]);
+    });
+  }
+
+  ngOnDestroy() {
+    if (this.matrixSub) {
+      this.matrixSub.unsubscribe();
+    }
+  }
+
+  updateFilter(filter: Filter, newChoice: string) {
+    filter.value = newChoice;
+    this.updateURI();
   }
 
   addFilter(index: number) {
-    let added = this.filters.splice(index, 1);
-    this.filterSelection.push(added[0]);
-    this.upateQuery();
+    let added = this.availableFilters.splice(index, 1);
+    this.filters.push(added[0]);
+    this.updateURI();
   }
 
   removeFilter(index: number) {
-    let removed = this.filterSelection.splice(index, 1);
-    this.filters.push(removed[0]);
-    this.upateQuery();
+    let removed = this.filters.splice(index, 1);
+    this.availableFilters.push(removed[0]);
+    this.updateURI();
   }
 
   isSelected(filter: Filter): boolean {
-    for (let v of this.filterSelection) {
+    for (let v of this.filters) {
       if (filter.field === v.field) {
         return true;
       }
@@ -41,8 +75,19 @@ export class EventSearchComponent implements OnInit {
     return false;
   }
 
-  upateQuery() {
-
+  updateURI() {
+    let filterMap: { [key: string]: string } = {}
+    for (let f of this.filters) {
+      filterMap[f.field] = f.value;
+      //todo: should support multiple values really...
+      // if (filterMap[f.field] === undefined) {
+      //   filterMap[f.field] = [f.value]
+      // } else {
+      //   filterMap[f.field].push(f.value)
+      // }
+    }
+    this.router.navigate([], {queryParams: filterMap, preserveFragment: true})
+    this.query = filterMap;
   }
 }
 

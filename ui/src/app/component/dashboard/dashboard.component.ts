@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,11 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DashboardComponent implements OnInit {
 
-  eventQuery: { [key: string]: string };
-
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

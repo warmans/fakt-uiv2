@@ -1,10 +1,9 @@
-<div class="card" *ngFor="let ev of events">
+<div class="card" *ngFor="let ev of events | eventkeyword:keyword">
 	<div class="card-header">
 		<div class="media">
 			<div class="media-left">
 				<a class="media-left media-top" href="#">
-					<img class="media-object" style="width: 60px; height: 60px;" [src]="'/assets/venue-placeholder.jpg'"
-						alt="Generic placeholder image">
+					<img class="media-object" style="width: 60px; height: 60px;" [src]="'/assets/venue-placeholder.jpg'" alt="Generic placeholder image">
 				</a>
 			</div>
 			<div class="media-body">

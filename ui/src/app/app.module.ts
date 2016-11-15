@@ -13,6 +13,7 @@ import { EventListComponent } from './component/shared/event-list/event-list.com
 import { EventService } from './service/event/event.service';
 import { UserService } from './service/user/user.service';
 import { ShortenText } from './pipe/shorten-text.pipe';
+import { EventKeywordPipe } from './pipe/eventkeyword.pipe';
 import { VenuesComponent } from './component/venues/venues.component';
 import { VenueListComponent } from './component/shared/venue-list/venue-list.component';
 import { UtagsComponent } from './component/shared/utags/utags.component';
@@ -25,6 +26,7 @@ import { EventSearchComponent } from './component/shared/event-search/event-sear
     DashboardComponent,
     EventListComponent,
     ShortenText,
+    EventKeywordPipe,
     VenuesComponent,
     VenueListComponent,
     UtagsComponent,

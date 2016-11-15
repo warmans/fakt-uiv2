@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Http, URLSearchParams } from '@angular/http';
 import { Event } from '../../entity/event';
+import { Subject }    from 'rxjs/Subject';
 
 import 'rxjs/add/operator/toPromise';
+
 
 @Injectable()
 export class EventService {
 
   constructor(private http: Http) { }
 
-  getEvents(query: {[key: string]: string}): Promise<Event[]> {
+  getEvents(query: { [key: string]: string }): Promise<Event[]> {
 
     let params = new URLSearchParams();
     for (let key in query) {
@@ -28,5 +30,4 @@ export class EventService {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
-
 }
