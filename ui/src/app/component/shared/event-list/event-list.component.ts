@@ -24,9 +24,9 @@ export class EventListComponent implements OnInit, OnChanges {
     this.refreshData();
   }
 
+  //todo: improve this mess
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     for (let propName in changes) {
-      console.log(propName);
       if (propName == "query") {
         this.refreshData();
       }

@@ -12,7 +12,7 @@
           </button>
           <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav" *ngIf="selected.isSingleChoice">
             <li *ngFor="let choice of selected.valueChoices;" role="menuitem" (click)="updateFilter(selected, choice)"><span class="dropdown-item">{{choice}}</span></li>
-            <li (click)="removeFilter(i)"><span class="dropdown-item">don't care</span></li>
+            <li (click)="removeFilter(i)"><span class="dropdown-item">Don't Care</span></li>
           </ul>
         </div>
         <!-- add availableFilters -->

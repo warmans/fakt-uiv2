@@ -12,8 +12,8 @@ export class EventSearchComponent implements OnInit {
 
   keyword: string;
 
-  
-  query: { [key: string]: string };  
+
+  query: { [key: string]: string };
 
   //unselected filters (possible filters) 
   availableFilters: Filter[] = [];
@@ -21,31 +21,35 @@ export class EventSearchComponent implements OnInit {
   //selected filters
   filters: Filter[] = [];
 
-  private matrixParameterValue: string;
-  private matrixSub: any;
- 
+  private querySub: any
+
   constructor(private route: ActivatedRoute, private router: Router) {
 
   }
 
   ngOnInit() {
+    //todo these need to be supported on the back-end
     this.availableFilters = [
-      Filter.NewFilter('happening...', 'date_relative', 'happening', ['today', 'tomorrow', 'this weekend', 'this week'], true, 'this weekend'),
-      Filter.NewFilter('of type...', 'type', 'of type', ['concert'], true, 'concert')
+      Filter.NewFilter('happening...', 'date_relative', 'happening', ['Today', 'Tomorrow', 'This Weekend', 'This Week'], true, 'This Weekend'),
+      Filter.NewFilter('of type...', 'type', 'of type', ['Konzert'], true, 'Konzert')
     ];
 
-    //todo:I guess this needs to be updated to propagate URI changes back to component 
-    let that = this;
-    this.route.snapshot.params["matrixParameterName"];
-    this.route.params.subscribe(function(matrixParams) {
-      that.matrixParameterValue = matrixParams["matrixParameterName"];
-      console.log(matrixParams["matrixParameterName"]);
+    let toAdd: number[] = [];
+
+    this.availableFilters.forEach((item, index) => {
+      let found = this.route.snapshot.queryParams[item.field];
+      if (found !== undefined) {
+        item.value = found;
+        toAdd.push(index);
+      }
     });
+
+    this.addFilter(...toAdd);
   }
 
   ngOnDestroy() {
-    if (this.matrixSub) {
-      this.matrixSub.unsubscribe();
+    if (this.querySub) {
+      this.querySub.unsubscribe();
     }
   }
 
@@ -54,9 +58,15 @@ export class EventSearchComponent implements OnInit {
     this.updateURI();
   }
 
-  addFilter(index: number) {
-    let added = this.availableFilters.splice(index, 1);
-    this.filters.push(added[0]);
+  addFilter(...indexes: number[]) {
+    console.log(indexes);
+    indexes.forEach((item, index) => {
+      //todo: moving items from one list to the other is kind of lame. It makes the below and teh toAdd stuff in Init
+      //since indexes are changing during iteration and add.
+      //shit hack --------------------------------> 
+      let added = this.availableFilters.splice(item-index, 1);
+      this.filters.push(added[0]);
+    });
     this.updateURI();
   }
 
@@ -86,7 +96,7 @@ export class EventSearchComponent implements OnInit {
       //   filterMap[f.field].push(f.value)
       // }
     }
-    this.router.navigate([], {queryParams: filterMap, preserveFragment: true})
+    this.router.navigate([], { queryParams: filterMap })
     this.query = filterMap;
   }
 }
