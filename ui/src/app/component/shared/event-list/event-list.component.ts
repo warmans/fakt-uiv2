@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnChanges, SimpleChange, ChangeDetectionStrategy, } from '@angular/core';
+import { Component, Input, OnInit, OnChanges, SimpleChange } from '@angular/core';
 import { Event } from '../../../entity/event';
 import { EventService } from './../../../service/event/event.service';
 import { UserService } from './../../../service/user/user.service';
@@ -27,7 +27,7 @@ export class EventListComponent implements OnInit, OnChanges {
   //todo: improve this mess
   ngOnChanges(changes: { [propKey: string]: SimpleChange }) {
     for (let propName in changes) {
-      if (propName == "query") {
+      if (propName === "query") {
         this.refreshData();
       }
     }

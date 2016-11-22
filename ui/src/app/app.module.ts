@@ -19,6 +19,7 @@ import { VenueListComponent } from './component/shared/venue-list/venue-list.com
 import { UtagsComponent } from './component/shared/utags/utags.component';
 import { LoginComponent } from './component/login/login.component';
 import { EventSearchComponent } from './component/shared/event-search/event-search.component';
+import { SafeURLPipe } from './pipe/safeurl.pipe';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { EventSearchComponent } from './component/shared/event-search/event-sear
     EventListComponent,
     ShortenText,
     EventKeywordPipe,
+    SafeURLPipe,
     VenuesComponent,
     VenueListComponent,
     UtagsComponent,
