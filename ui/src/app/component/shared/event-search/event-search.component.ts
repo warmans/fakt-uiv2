@@ -1,37 +1,46 @@
-import { Component, Input, OnInit, enableProdMode } from '@angular/core';
-import { inject } from '@angular/core/testing';
-import { element } from 'protractor';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-event-search',
   templateUrl: './event-search.component.html',
   styleUrls: ['./event-search.component.scss'],
 })
-export class EventSearchComponent implements OnInit {
+export class EventSearchComponent implements OnInit, OnDestroy {
 
   keyword: string;
 
-
   query: { [key: string]: string };
 
-  //unselected filters (possible filters) 
+  // unselected filters (possible filters) 
   availableFilters: Filter[] = [];
 
-  //selected filters
+  // selected filters
   filters: Filter[] = [];
 
   private querySub: any
 
-  constructor(private route: ActivatedRoute, private router: Router) {
-
-  }
+  constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    //todo these need to be supported on the back-end
+    // todo these need to be supported on the back-end
     this.availableFilters = [
-      Filter.NewFilter('happening...', 'date_relative', 'happening', ['Today', 'Tomorrow', 'This Weekend', 'This Week'], true, 'This Weekend'),
-      Filter.NewFilter('of type...', 'type', 'of type', ['Konzert'], true, 'Konzert')
+      Filter.NewFilter(
+        'happening...',
+        'date_relative',
+        'happening',
+        ['Today', 'Tomorrow', 'This Weekend', 'This Week'],
+        true,
+        'This Weekend',
+      ),
+      Filter.NewFilter(
+        'of type...',
+        'type',
+        'of type',
+        ['Konzert'],
+        true,
+        'Konzert',
+      )
     ];
 
     let toAdd: number[] = [];
@@ -59,12 +68,11 @@ export class EventSearchComponent implements OnInit {
   }
 
   addFilter(...indexes: number[]) {
-    console.log(indexes);
     indexes.forEach((item, index) => {
-      //todo: moving items from one list to the other is kind of lame. It makes the below and teh toAdd stuff in Init
-      //since indexes are changing during iteration and add.
-      //shit hack --------------------------------> 
-      let added = this.availableFilters.splice(item-index, 1);
+      // todo: moving items from one list to the other is kind of lame. It makes the below and teh toAdd stuff in Init
+      // since indexes are changing during iteration and add.
+      // shit hack --------------------------------> 
+      let added = this.availableFilters.splice(item - index, 1);
       this.filters.push(added[0]);
     });
     this.updateURI();
@@ -89,7 +97,7 @@ export class EventSearchComponent implements OnInit {
     let filterMap: { [key: string]: string } = {}
     for (let f of this.filters) {
       filterMap[f.field] = f.value;
-      //todo: should support multiple values really...
+      // todo: should support multiple values really...
       // if (filterMap[f.field] === undefined) {
       //   filterMap[f.field] = [f.value]
       // } else {

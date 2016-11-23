@@ -20,6 +20,10 @@ import { UtagsComponent } from './component/shared/utags/utags.component';
 import { LoginComponent } from './component/login/login.component';
 import { EventSearchComponent } from './component/shared/event-search/event-search.component';
 import { SafeURLPipe } from './pipe/safeurl.pipe';
+import { NotificationService } from './service/notification/notification.service';
+
+// Observable operators
+import 'rxjs/Rx';
 
 @NgModule({
   declarations: [
@@ -43,7 +47,7 @@ import { SafeURLPipe } from './pipe/safeurl.pipe';
     DropdownModule,
     routing
   ],
-  providers: [EventService, UserService],
+  providers: [EventService, UserService, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

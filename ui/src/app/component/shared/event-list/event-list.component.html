@@ -1,4 +1,4 @@
-<div class="card" *ngFor="let ev of events | eventkeyword:keyword">
+<div class="card" *ngFor="let ev of events  | async | eventkeyword:keyword">
 	<div class="card-header">
 		<div class="media">
 			<div class="media-left">

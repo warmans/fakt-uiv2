@@ -2,6 +2,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChange } from '@angular/core
 import { Event } from '../../../entity/event';
 import { EventService } from './../../../service/event/event.service';
 import { UserService } from './../../../service/user/user.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-event-list',
@@ -10,7 +11,7 @@ import { UserService } from './../../../service/user/user.service';
 })
 export class EventListComponent implements OnInit, OnChanges {
 
-  events: Event[];
+  events: Observable<Event[]>;
 
   @Input()
   query: { [key: string]: string };
@@ -34,7 +35,7 @@ export class EventListComponent implements OnInit, OnChanges {
   }
 
   refreshData() {
-    this.eventService.getEvents(this.query).then(events => this.events = events);
+    this.events = this.eventService.getEvents(this.query);
   }
 
 }

@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 class Notification {
   cls: string;
@@ -8,20 +9,19 @@ class Notification {
 @Injectable()
 export class NotificationService {
 
-  private notifications: Notification[];
+  notifications: Notification[];
 
   addNotification(cls: string, message: string) {
     let n = new Notification();
     n.cls = cls;
     n.message = message;
+    if (this.notifications === undefined) {
+      this.notifications = [];
+    }
     this.notifications.push(n);
   }
 
-  getNotifications(): Notification[] {
-    let latest: Notification[];
-    while (this.notifications.length > 0) {
-      latest.push(this.notifications.shift());
-    }
-    return latest;
+  dismiss(i: number): void {
+    this.notifications.splice(i, 1);
   }
 }
