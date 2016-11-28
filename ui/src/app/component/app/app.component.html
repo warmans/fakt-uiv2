@@ -15,6 +15,7 @@
         </ul>
     </div>
 </nav>
+<div class="loading-overlay" *ngIf="loadingService.isLoading | async">LOADING...</div>
 <div class="container-fluid">
     <div class="col-lg-12">
         <div  *ngFor="let alert of notificationService.notifications; let i = index;" (click)="notificationService.dismiss(i)" class="alert {{alert.cls}}" role="alert">

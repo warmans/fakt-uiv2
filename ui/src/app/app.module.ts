@@ -21,6 +21,7 @@ import { LoginComponent } from './component/login/login.component';
 import { EventSearchComponent } from './component/shared/event-search/event-search.component';
 import { SafeURLPipe } from './pipe/safeurl.pipe';
 import { NotificationService } from './service/notification/notification.service';
+import { LoadingService } from './service/loading/loading.service';
 
 // Observable operators
 import 'rxjs/Rx';
@@ -47,7 +48,7 @@ import 'rxjs/Rx';
     DropdownModule,
     routing
   ],
-  providers: [EventService, UserService, NotificationService],
+  providers: [EventService, UserService, NotificationService, LoadingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

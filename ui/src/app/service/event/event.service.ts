@@ -4,12 +4,17 @@ import { Event } from '../../entity/event';
 import { Observable } from 'rxjs';
 
 import { NotificationService } from './../notification/notification.service';
+import { LoadingService } from './../loading/loading.service';
 
 
 @Injectable()
 export class EventService {
 
-  constructor(private http: Http, private notifications: NotificationService) { }
+  constructor(
+    private http: Http,
+    private notifications: NotificationService,
+    private loading: LoadingService,
+  ) { }
 
   getEvents(query: { [key: string]: string }): Observable<Event[]> {
 
@@ -20,7 +25,7 @@ export class EventService {
       }
     }
 
-    return this.http
+    let sub =  this.http
     .get('/api/v1/event', { search: params })
     .map((r: Response) => Event.fromObjects(r.json().payload))
     .catch(r => {
@@ -28,5 +33,7 @@ export class EventService {
         this.notifications.addNotification('alert-danger', err);
         return Observable.empty();
     });
+    this.loading.observe(sub);
+    return sub;
   }
 }
