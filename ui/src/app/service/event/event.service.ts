@@ -32,7 +32,8 @@ export class EventService {
         let err = r.error || r;
         this.notifications.addNotification('alert-danger', err);
         return Observable.empty();
-    });
+    })
+    .share();
     this.loading.observe(sub);
     return sub;
   }

@@ -22,9 +22,14 @@ import { EventSearchComponent } from './component/shared/event-search/event-sear
 import { SafeURLPipe } from './pipe/safeurl.pipe';
 import { NotificationService } from './service/notification/notification.service';
 import { LoadingService } from './service/loading/loading.service';
+import { EventComponent } from './component/event/event.component';
+
 
 // Observable operators
 import 'rxjs/Rx';
+import { EventDetailComponent } from './component/shared/event-detail/event-detail.component';
+import { EventCompactListComponent } from './component/shared/event-compact-list/event-compact-list.component';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +44,9 @@ import 'rxjs/Rx';
     UtagsComponent,
     LoginComponent,
     EventSearchComponent,
+    EventComponent,
+    EventDetailComponent,
+    EventCompactListComponent,
   ],
   imports: [
     BrowserModule,

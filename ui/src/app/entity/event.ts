@@ -22,6 +22,10 @@ export class Event {
         return '';
     }
 
+    public getTitle(): string {
+        return this.type + " at " + this.venue.name;
+    }
+
     static fromObjects(json: Array<Object>): Event[] {
         return json.map(function (ev): Event {
             return Event.fromObject(ev)
