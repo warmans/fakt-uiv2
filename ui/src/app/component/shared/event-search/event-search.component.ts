@@ -109,7 +109,7 @@ export class EventSearchComponent implements OnInit, OnDestroy {
   }
 }
 
-class Filter {
+export class Filter {
   name: string;
   field: string;
   value: string;

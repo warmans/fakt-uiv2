@@ -3,7 +3,7 @@ import { Http } from '@angular/http';
 import { Utag } from '../../../entity/utag';
 import { UserService } from './../../../service/user/user.service';
 
-class DisplayTag {
+export class DisplayTag {
   value: string;
   icon: string;
   count: number;

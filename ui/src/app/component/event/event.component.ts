@@ -36,7 +36,7 @@ export class EventComponent implements OnInit {
   }
 
   getSimilar(event: Event) {
-    this.eventService.getEvents({venue: String(event.venue.id)}).subscribe( events => this.setSimilar(events))
+    this.eventService.getEvents({venue: String(event.venue.id), date_relative: 'This Week'}).subscribe( events => this.setSimilar(events))
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-class Notification {
+export class Notification {
   cls: string;
   message: string;
 }

@@ -1,6 +1,6 @@
 PROJECT_OWNER=warmans
 PROJECT_NAME=fakt-ui
-PROJECT_VERSION=0.10.0
+PROJECT_VERSION=2.0.0
 DOCKER_NAME=$(PROJECT_OWNER)/$(PROJECT_NAME)
 
 # Go
@@ -12,12 +12,11 @@ test:
 
 .PHONY: build
 build:
-	GO15VENDOREXPERIMENT=1 NOCGO=true go build -ldflags "-X main.VERSION=$(PROJECT_VERSION)" -o .build/$(PROJECT_NAME)
+	GO15VENDOREXPERIMENT=1 NOCGO=true go build -ldflags "-X main.Version=$(PROJECT_VERSION)" -o .build/$(PROJECT_NAME)
 
-.PHONY: static
-static:
-	@sed -i "s/\?cb\=[0-9]*/?cb=$$(date +%s)/g" ui/static/index.html
-	${GOPATH}/bin/esc -prefix="ui/static" -o static.go ui/static
+.PHONY: build-ui
+build-ui: 
+	cd ui; ng build --prod --aot
 
 # Packaging
 #-----------------------------------------------------------------------
@@ -34,4 +33,4 @@ docker-publish:
 #-----------------------------------------------------------------------
 
 .PHONY: publish
-publish: static build docker-build docker-publish
+publish: build build-ui docker-build docker-publish

@@ -1,3 +1,4 @@
 package: github.com/warmans/fakt-uiv2
 import:
 - package: github.com/NYTimes/gziphandler
+- package: github.com/gorilla/mux

@@ -8,9 +8,11 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"path"
 	"time"
 
 	"github.com/NYTimes/gziphandler"
+	"github.com/gorilla/mux"
 )
 
 const Version = "0.0.0"
@@ -21,6 +23,7 @@ func main() {
 	bind := flag.String("server.bind", ":1313", "Web server bind address")
 	ver := flag.Bool("v", false, "Print version and exit")
 	faktAPIHost := flag.String("api.fakt.host", "http://localhost:8080", "Proxy api to avoid CORS crap")
+	distDir := flag.String("dist.dir", "dist", "path to dist assets dir")
 
 	flag.Parse()
 
@@ -29,13 +32,15 @@ func main() {
 		os.Exit(0)
 	}
 
-	//public assets
-	staticFileServer := http.FileServer(http.Dir("ui/public"))
-
 	//routing
-	mux := http.NewServeMux()
-	mux.Handle("/dist/", http.RedirectHandler("/", http.StatusMovedPermanently))
-	mux.Handle("/", http.StripPrefix("/", gziphandler.GzipHandler(staticFileServer)))
+	router := mux.NewRouter()
+
+	var notFoundHandler http.HandlerFunc
+	notFoundHandler = func(rw http.ResponseWriter, r *http.Request) {
+		log.Println("not found")
+		http.ServeFile(rw, r, path.Join(*distDir, "index.html"))
+	}
+	router.NotFoundHandler = notFoundHandler
 
 	//API proxy
 	apiHostParsed, err := url.Parse(*faktAPIHost)
@@ -43,19 +48,45 @@ func main() {
 		log.Fatalf("Invalid URL for api.host: %s", *faktAPIHost)
 	}
 	log.Printf("Proxying API calls to: %s", apiHostParsed)
-	mux.Handle(
-		"/api/v1/",
+	router.PathPrefix("/api/v1/").Handler(
 		httputil.NewSingleHostReverseProxy(apiHostParsed),
 	)
-	mux.Handle(
-		"/static/",
+	router.PathPrefix("/static/").Handler(
 		httputil.NewSingleHostReverseProxy(apiHostParsed),
 	)
 
+	//public assets
+	log.Printf("Serving assets from: %s", *distDir)
+	staticFileServer := gziphandler.GzipHandler(TryFileHandler(path.Join(*distDir, "index.html"), *distDir))
+	router.PathPrefix("/").Handler(http.StripPrefix("/", staticFileServer))
+
 	for true {
 		log.Printf("Listening on %s", *bind)
-		err := http.ListenAndServe(*bind, mux)
+		err := http.ListenAndServe(*bind, router)
 		log.Printf("SERVER FAILED: %s", err.Error())
 		time.Sleep(1 * time.Second) //retry in 1 second
 	}
+}
+
+func TryFileHandler(defaultFile string, fileDirs ...string) http.Handler {
+	return &TryFiles{fileDirs: fileDirs, defaultFile: defaultFile}
+}
+
+type TryFiles struct {
+	fileDirs    []string
+	defaultFile string
+}
+
+func (h *TryFiles) ServeHTTP(rw http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "" {
+		for _, v := range h.fileDirs {
+			filePath := path.Join(v, r.URL.Path)
+			_, err := os.Stat(filePath)
+			if err == nil {
+				http.ServeFile(rw, r, filePath)
+				return
+			}
+		}
+	}
+	http.ServeFile(rw, r, h.defaultFile)
 }
