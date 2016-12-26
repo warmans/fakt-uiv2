@@ -9,9 +9,6 @@ import { Event } from '../../../entity/event';
 export class EventCompactListComponent implements OnInit {
 
   @Input()
-  exclude: Event
-
-  @Input()
   events: Event[]
 
   @Input()

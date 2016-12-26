@@ -11,11 +11,11 @@ export class Event {
     utag: string[];
     source: string;
 
-    get imageURL(): string {
+    public getImageURL(size: string): string {
         if (this.performer !== undefined) {
             for (let p of this.performer) {
-                if (p.img !== '') {
-                    return 'url(' + p.img + ')';
+                if (p.images[size]) {
+                    return p.images[size]
                 }
             }
         }
@@ -24,6 +24,21 @@ export class Event {
 
     public getTitle(): string {
         return this.type + " at " + this.venue.name;
+    }
+
+    public getTags(max: number): string[] {
+      let tags = [];
+      if (this.performer !== undefined) {
+        for (let p of this.performer) {
+          for (let t of p.tag) {
+            if (max > 0 && tags.length >= max) {
+              return tags
+            }
+            tags.push(t)
+          }
+        }
+      }
+      return tags
     }
 
     static fromObjects(json: Array<Object>): Event[] {
