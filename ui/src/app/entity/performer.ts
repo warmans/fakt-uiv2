@@ -1,5 +1,5 @@
 export class Performer {
-  id: number;
+  id: string;
   name: string;
   info: string;
   genre: string;
@@ -9,4 +9,22 @@ export class Performer {
   tag: string[];
   images: {[key: string]: string};
   activity: string;
+
+
+  static fromObjects(json: Array<Object>): Performer[] {
+    return json.map(function (ev): Performer {
+      return Performer.fromObject(ev)
+    });
+  }
+
+  static fromObject(ob: Object): Performer {
+    let e = new Performer();
+    for (let key in ob) {
+      if (ob.hasOwnProperty(key)) {
+        e[key] = ob[key];
+      }
+    }
+    return e;
+  }
+
 }

@@ -28,19 +28,12 @@
           <div class="media m-t-2" *ngFor="let performer of event.performer; let i = index;">
             <a class="media-left media-top" href="/performer/{{performer.id}}">
               <img class="media-object" style="width: 40px; height: 40px;"
-                   [src]="performer.images['sm'] ? '/static/'+performer.images['sm'] : '/assets/person-placeholder.jpg'"
-                   alt="Generic placeholder image">
+                   [src]="performer.images['sm'] ? '/static/'+performer.images['sm'] : '/assets/person-placeholder.jpg'">
             </a>
             <div class="media-body">
               <strong class="media-heading">{{performer.name}}</strong>
               <span class="text-muted">:: {{performer.genre}}</span>
-
-
               <div>{{performer.info}}</div>
-              <!--TODO: keep this? it adds a lot of overhead. Maybe put the embed on the performer page instead-->
-              <!--div *ngIf="performer.embed_url">
-                                <iframe  [src]="performer.embed_url | safeurl" style="border: 0; width: 100%; height: 42px; margin-top: 10px;" seamless></iframe>
-                            </div-->
               <div class="performer-links">
                 <a target="_blank" [href]="performer.listen_url" *ngIf="performer.listen_url"><i
                   class="fa fa-headphones" aria-hidden="true"></i> Listen</a>

@@ -1,5 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import {Component, OnInit, OnDestroy, SimpleChange, OnChanges} from '@angular/core';
+import {Router, ActivatedRoute} from '@angular/router';
+import {EventService} from "../../../service/event/event.service";
+import {Event} from '../../../entity/event';
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-event-search',
@@ -8,11 +11,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class EventSearchComponent implements OnInit, OnDestroy {
 
+  page: number = 1;
+
+  events: Observable<Event[]>;
+
   keyword: string;
 
-  query: { [key: string]: string };
+  query: {[key: string]: string};
 
-  // unselected filters (possible filters) 
+  // unselected filters (possible filters)
   availableFilters: Filter[] = [];
 
   // selected filters
@@ -20,10 +27,10 @@ export class EventSearchComponent implements OnInit, OnDestroy {
 
   private querySub: any
 
-  constructor(private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router, private eventService: EventService) {
+  }
 
   ngOnInit() {
-    // todo these need to be supported on the back-end
     this.availableFilters = [
       Filter.NewFilter(
         'happening...',
@@ -54,6 +61,8 @@ export class EventSearchComponent implements OnInit, OnDestroy {
     });
 
     this.addFilter(...toAdd);
+
+    this.refreshData();
   }
 
   ngOnDestroy() {
@@ -71,7 +80,7 @@ export class EventSearchComponent implements OnInit, OnDestroy {
     indexes.forEach((item, index) => {
       // todo: moving items from one list to the other is kind of lame. It makes the below and teh toAdd stuff in Init
       // since indexes are changing during iteration and add.
-      // shit hack --------------------------------> 
+      // shit hack -------------------------------->
       let added = this.availableFilters.splice(item - index, 1);
       this.filters.push(added[0]);
     });
@@ -93,8 +102,20 @@ export class EventSearchComponent implements OnInit, OnDestroy {
     return false;
   }
 
+  nextPage() {
+    this.page++;
+    this.updateURI();
+  }
+
+  previousPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.updateURI();
+    }
+  }
+
   updateURI() {
-    let filterMap: { [key: string]: string } = {}
+    let filterMap: {[key: string]: string} = {"page": ""+this.page};
     for (let f of this.filters) {
       filterMap[f.field] = f.value;
       // todo: should support multiple values really...
@@ -104,9 +125,17 @@ export class EventSearchComponent implements OnInit, OnDestroy {
       //   filterMap[f.field].push(f.value)
       // }
     }
-    this.router.navigate([], { queryParams: filterMap })
+    this.router.navigate([], {queryParams: filterMap})
     this.query = filterMap;
+
+    //always refresh data when the URI changes
+    this.refreshData();
   }
+
+  refreshData() {
+    this.events = this.eventService.getEvents(this.query);
+  }
+
 }
 
 export class Filter {
@@ -117,14 +146,12 @@ export class Filter {
   valueChoices: string[];
   isSingleChoice: boolean;
 
-  static NewFilter(
-    name: string,
-    field: string,
-    description: string,
-    valueChoices: string[],
-    isSingleChoice: boolean,
-    defaultValue: string
-  ): Filter {
+  static NewFilter(name: string,
+                   field: string,
+                   description: string,
+                   valueChoices: string[],
+                   isSingleChoice: boolean,
+                   defaultValue: string): Filter {
     let f = new Filter();
     f.name = name;
     f.field = field;

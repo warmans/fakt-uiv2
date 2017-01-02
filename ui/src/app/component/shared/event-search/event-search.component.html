@@ -6,7 +6,7 @@
         <div class="btn btn-secondary">Only show events</div>
         <!--current selection -->
         <div class="btn-group" *ngFor="let selected of filters; let i = index;" dropdown keyboardNav="true">
-          <button id="simple-btn-keyboard-nav" type="button" class="btn btn-secondary dropdown-toggle" dropdownToggle>
+          <button type="button" class="btn btn-secondary dropdown-toggle" dropdownToggle>
             {{i == 0 ? "" : "and "}} {{selected.description}} {{selected.value || "whenever"}}
             <span class="caret"></span>
           </button>
@@ -17,7 +17,7 @@
         </div>
         <!-- add availableFilters -->
         <div class="btn-group" dropdown keyboardNav="true" *ngIf="availableFilters.length > 0">
-          <button id="simple-btn-keyboard-nav" type="button" class="btn btn-secondary dropdown-toggle" dropdownToggle>
+          <button type="button" class="btn btn-secondary dropdown-toggle" dropdownToggle>
             <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" dropdownMenu role="menu" aria-labelledby="simple-btn-keyboard-nav">
@@ -26,10 +26,25 @@
         </div>
         <div class="btn btn-secondary">containing Text</div>
       </div>
-      
+
       <input type="text" class="form-control" name="keyword" [(ngModel)]="keyword">
     </div>
   </div>
 </div>
 
-<app-event-list [keyword]="keyword" [query]="query"></app-event-list>
+<app-event-list [events]="events" [keyword]="keyword"></app-event-list>
+
+<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li class="page-item" *ngIf="query.page > 1">
+      <button (click)="previousPage()" class="page-link" href="#" aria-label="Previous">
+        Previous &laquo;
+      </button>
+    </li>
+    <li class="page-item">
+      <button (click)="nextPage()" class="page-link" href="#" aria-label="Next">
+        Next &raquo;
+      </button>
+    </li>
+  </ul>
+</nav>
