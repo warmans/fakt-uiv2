@@ -25,7 +25,7 @@
             {{event.description | shorten:1024}}
           </p>
           <hr *ngIf="event.performer">
-          <div class="media m-t-2" *ngFor="let performer of event.performer; let i = index;">
+          <div class="media m-t-1" *ngFor="let performer of event.performer; let i = index;">
             <a class="media-left media-top" [routerLink]="['/performer', performer.id]">
               <img class="media-object" style="width: 40px; height: 40px;"
                    [src]="performer.images['sm'] ? '/static/'+performer.images['sm'] : '/assets/person-placeholder.jpg'">
@@ -41,8 +41,9 @@
                   class="fa fa-search"></i> Search</a>
                 <span class="text-primary"><i class="fa fa-heartbeat"></i> {{performer.activity}}</span>
               </div>
+              <hr *ngIf="i < event.performer.length-1">
             </div>
-            <hr *ngIf="i < event.performer.length-1">
+
           </div>
         </div>
       </div>

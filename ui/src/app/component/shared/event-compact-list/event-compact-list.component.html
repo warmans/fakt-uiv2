@@ -7,18 +7,13 @@
       <div class="card-block">
         <div class="card-text">
           <div class="media">
-            <div class="media-body">
-              <span class="media-left media-top">
-                <img class="media-object" style="width: 40px; height: 40px;"
-                     [src]="event.getImageURL('sm') ? '/static/'+event.getImageURL('sm') : '/assets/person-placeholder.jpg'">
-              </span>
-              <div class="media-body">
-                <p>{{event.description | shorten:128}}</p>
-              </div>
-            </div>
+            <a class="media-left media-top" [routerLink]="['/event', event.id]">
+              <img class="media-object" style="width: 40px; height: 40px;"
+                   [src]="event.getImageURL('sm') ? '/static/'+event.getImageURL('sm') : '/assets/person-placeholder.jpg'">
+            </a>
+            <div class="media-body">{{event.description | shorten:128}}</div>
           </div>
         </div>
       </div>
     </div>
 </div>
-

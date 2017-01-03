@@ -20,7 +20,7 @@ $font-size-h4: 1rem;
 $font-size-h5: 1rem;
 $font-size-h6: 1rem;
 
-@import '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/bootstrap/scss/bootstrap-flex';
 
 @mixin box-shadow($top, $left, $blur, $size, $color, $inset: false) {
     @if $inset {
@@ -45,10 +45,6 @@ $font-size-h6: 1rem;
 .navbar .nav-item {
   font-weight: bold;
   margin: 0px 10px;
-}
-
-.container-fluid {
-  padding: $spacer 5px;
 }
 
 .card-block {
