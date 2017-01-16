@@ -33,7 +33,7 @@ export class EventComponent implements OnInit {
   }
 
   getSimilar(event: Event) {
-    this.eventService.getSimilarEvents(event.id).subscribe(events => this.setSimilar(events))
+    this.eventService.getSimilarEvents(event.id).subscribe(events => this.setSimilar(events));
   }
 
 }

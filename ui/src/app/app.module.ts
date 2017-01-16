@@ -31,6 +31,7 @@ import {EventCompactListComponent} from './component/shared/event-compact-list/e
 
 // Observable operators
 import 'rxjs/Rx';
+import { SimpleEventSearchComponent } from './component/shared/simple-event-search/simple-event-search.component';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import 'rxjs/Rx';
     EventDetailComponent,
     EventCompactListComponent,
     PerformerComponent,
+    SimpleEventSearchComponent,
   ],
   imports: [
     BrowserModule,

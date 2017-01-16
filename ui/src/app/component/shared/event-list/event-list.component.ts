@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, EventEmitter, Output} from '@angular/core';
 import {Event} from '../../../entity/event';
 
 import {Observable} from 'rxjs';
@@ -14,12 +14,29 @@ export class EventListComponent implements OnInit {
   events: Observable<Event[]>;
 
   @Input()
-  keyword: string
+  keyword: string;
+
+  @Output()
+  onPageChange = new EventEmitter<number>();
+
+  curPage: number = 0;
 
   constructor() {
   }
 
   ngOnInit() {
+  }
 
+  nextPage() {
+    this.curPage++;
+    this.onPageChange.emit(this.curPage);
+  }
+
+  prevPage() {
+    if (this.curPage == 0) {
+      return
+    }
+    this.curPage--;
+    this.onPageChange.emit(this.curPage);
   }
 }

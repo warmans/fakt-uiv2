@@ -1,3 +1,16 @@
 <div *ngFor="let ev of events  | async | eventkeyword:keyword">
 	<app-event-detail [event]="ev"></app-event-detail>
 </div>
+
+<div class="pagination d-flex justify-content-between col-xs-12">
+  <div>
+      <button (click)="prevPage()" class="page-link" aria-label="Previous" [disabled]="curPage < 1">
+        Previous &laquo;
+      </button>
+  </div>
+  <div>
+      <button (click)="nextPage()" class="page-link" aria-label="Next">
+        Next &raquo;
+      </button>
+  </div>
+</div>

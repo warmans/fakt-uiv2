@@ -125,7 +125,7 @@ export class EventSearchComponent implements OnInit, OnDestroy {
       //   filterMap[f.field].push(f.value)
       // }
     }
-    this.router.navigate([], {queryParams: filterMap})
+    this.router.navigate([], {queryParams: filterMap});
     this.query = filterMap;
 
     //always refresh data when the URI changes
