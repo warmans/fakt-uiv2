@@ -1,6 +1,19 @@
 <div class="row">
   <div class="col-md-12 col-sm-12">
-    <app-simple-event-search [defaultQueryValue]="route.snapshot.queryParams" (onQueryUpdate)="mergeQueryData($event)"></app-simple-event-search>
-    <app-event-list [events]="events" (onPageChange)="setPage($event)"></app-event-list>
+
+    <app-simple-event-search
+      [defaultQueryValue]="route.snapshot.queryParams"
+      (onQueryUpdate)="mergeQueryData($event, true)"
+      (onKeywordUpdate)="updateKeyword($event)">
+    </app-simple-event-search>
+
+    <app-event-list
+      [events]="events"
+      [keyword]="eventKeyword"
+      [curPage]="getCurrentPage()"
+      (onPageChange)="setPage($event)"
+      [enablePagination]="true">
+    </app-event-list>
+
   </div>
 </div>

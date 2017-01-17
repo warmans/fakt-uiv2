@@ -14,6 +14,8 @@ export class DashboardComponent implements OnInit {
 
   query: {[key: string]: string} = {};
 
+  eventKeyword: string;
+
   events: Observable<Event[]>;
 
   constructor(private route: ActivatedRoute, private router: Router, private eventService: EventService) {
@@ -25,18 +27,35 @@ export class DashboardComponent implements OnInit {
   }
 
   setPage(page: number) {
-    this.mergeQueryData({"page": String(page)});
-    this.refreshData();
+    this.mergeQueryData({"page": String(page)}, false);
   }
 
-  mergeQueryData(query: {[key: string]: string}) {
+  mergeQueryData(query: {[key: string]: string}, resetOffset: boolean) {
     let newQuery = {};
+    for (let key in this.query) {
+      if (this.query.hasOwnProperty(key)) {
+        newQuery[key] = this.query[key];
+      }
+    }
     for (let key in query) {
       if (query.hasOwnProperty(key)) {
         newQuery[key] = query[key];
       }
     }
+
     this.query = newQuery;
+    this.refreshData();
+  }
+
+  updateKeyword(keyword: string) {
+    this.eventKeyword = keyword;
+  }
+
+  getCurrentPage(): number {
+      if (this.query["page"] != undefined) {
+        return Number(this.query["page"]);
+      }
+      return 1;
   }
 
   refreshData() {

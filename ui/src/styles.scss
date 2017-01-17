@@ -1,12 +1,11 @@
 $spacer:   20px;
 $grid-gutter-width: 20px;
 
-$font-size-root: 14px !default;
+$font-size-base: 0.9rem !default;
 
 $navbar-border-radius: 0px;
 
 $body-bg:    #F5F8FA;
-//$body-color: #CCC;
 $heading-bg: #222;
 
 $brand-primary: #B2543D ;
@@ -20,7 +19,7 @@ $font-size-h4: 1rem;
 $font-size-h5: 1rem;
 $font-size-h6: 1rem;
 
-@import '../node_modules/bootstrap/scss/bootstrap-flex';
+@import '../node_modules/bootstrap/scss/bootstrap';
 
 @mixin box-shadow($top, $left, $blur, $size, $color, $inset: false) {
     @if $inset {
@@ -38,14 +37,6 @@ $font-size-h6: 1rem;
   font-weight: bold;
 }
 
-.navbar-branded {
-  background-color: $brand-primary;
-}
-
-.navbar .nav-item {
-  font-weight: bold;
-  margin: 0px 10px;
-}
 
 .card-block {
   padding: 0;
@@ -56,5 +47,5 @@ $font-size-h6: 1rem;
 }
 
 .card .table {
-  margin-bottom: 0px;
+  margin-bottom: 0;
 }

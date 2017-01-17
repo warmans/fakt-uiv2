@@ -19,7 +19,11 @@ export class EventListComponent implements OnInit {
   @Output()
   onPageChange = new EventEmitter<number>();
 
-  curPage: number = 0;
+  @Input()
+  enablePagination: boolean = false;
+
+  @Input()
+  curPage: number = 1;
 
   constructor() {
   }
@@ -33,7 +37,7 @@ export class EventListComponent implements OnInit {
   }
 
   prevPage() {
-    if (this.curPage == 0) {
+    if (this.curPage == 1) {
       return
     }
     this.curPage--;

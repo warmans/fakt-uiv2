@@ -2,15 +2,12 @@
 	<app-event-detail [event]="ev"></app-event-detail>
 </div>
 
-<div class="pagination d-flex justify-content-between col-xs-12">
-  <div>
-      <button (click)="prevPage()" class="page-link" aria-label="Previous" [disabled]="curPage < 1">
-        Previous &laquo;
-      </button>
-  </div>
-  <div>
-      <button (click)="nextPage()" class="page-link" aria-label="Next">
-        Next &raquo;
-      </button>
-  </div>
+<div *ngIf="enablePagination" class="d-flex justify-content-between m-t-2">
+    <button (click)="prevPage()" class="btn" aria-label="Previous" [disabled]="curPage <= 1">
+      &laquo; Prev
+    </button>
+
+    <button (click)="nextPage()" class="btn" aria-label="Next">
+      Next &raquo;
+    </button>
 </div>
