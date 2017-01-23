@@ -40,7 +40,7 @@ export class SimpleEventSearchComponent implements OnInit {
     }
 
     //setup keyword debounce
-    this.keywordDebouncer.debounceTime(1000).subscribe((val) => this.onKeywordUpdate.emit(val));
+    this.keywordDebouncer.debounceTime(500).subscribe((val) => this.onKeywordUpdate.emit(val));
 
   }
 

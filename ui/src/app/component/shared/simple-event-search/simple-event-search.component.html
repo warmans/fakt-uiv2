@@ -1,7 +1,7 @@
 <form>
-  <div class="row">
-    <div class="col-lg-6">
-      <div class="form-group">
+  <div class="row mb-2">
+    <div class="col-sm">
+      <div class="form-group m-0">
         <select
           placeholder="When..."
           class="form-control"
@@ -19,13 +19,11 @@
         </select>
       </div>
     </div>
-
-    <div class="col-lg-6">
-      <div class="form-group">
+    <div class="col-sm">
+      <div class="form-group m-0">
         <input name="keyword" class="form-control" placeholder="Keyword..." [(ngModel)]="keyword" (ngModelChange)="handleKeywordChange(keyword)"/>
       </div>
     </div>
-
   </div>
 </form>
 

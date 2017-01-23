@@ -32,6 +32,7 @@ import {EventCompactListComponent} from './component/shared/event-compact-list/e
 // Observable operators
 import 'rxjs/Rx';
 import { SimpleEventSearchComponent } from './component/shared/simple-event-search/simple-event-search.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { SimpleEventSearchComponent } from './component/shared/simple-event-sear
     HttpModule,
     MomentModule,
     DropdownModule,
-    routing
+    routing,
+    NgbModule.forRoot(),
   ],
   providers: [EventService, PerformerService, UserService, NotificationService, LoadingService],
   bootstrap: [AppComponent]
