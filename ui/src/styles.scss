@@ -18,6 +18,8 @@ $font-size-h4: 1rem;
 $font-size-h5: 1rem;
 $font-size-h6: 1rem;
 
+$form-group-margin-bottom: 0px;
+
 @import '../node_modules/bootstrap/scss/bootstrap';
 
 @mixin box-shadow($top, $left, $blur, $size, $color, $inset: false) {
@@ -32,10 +34,9 @@ $font-size-h6: 1rem;
     }
 }
 
-.navbar-brand {
+nav .navbar-brand {
   font-weight: bold;
 }
-
 
 .card-block {
   padding: 0;
