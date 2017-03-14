@@ -1,5 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {Observable, Subject} from "rxjs";
+import {EventService} from "../../../service/event/event.service";
 
 @Component({
   selector: 'app-simple-event-search',
@@ -19,11 +20,13 @@ export class SimpleEventSearchComponent implements OnInit {
 
   private keywordDebouncer: Subject<any> = new Subject();
 
-  keyword: string;
+  private keyword: string;
 
   private query: {[key: string]: string} = {};
 
-  constructor() {
+  private tags: Observable<Object[]>;
+
+  constructor(private eventService: EventService) {
   }
 
   ngOnInit() {
@@ -38,10 +41,15 @@ export class SimpleEventSearchComponent implements OnInit {
     if (this.query['date_relative'] == undefined) {
       this.query['date_relative'] = "";
     }
+    if (this.query['tag'] == undefined) {
+      this.query['tag'] = "";
+    }
 
     //setup keyword debounce
     this.keywordDebouncer.debounceTime(500).subscribe((val) => this.onKeywordUpdate.emit(val));
 
+    //get available tags
+    this.tags = this.eventService.getEventTags();
   }
 
   handleFormChange(event: any, query: {[key: string]: string}) {

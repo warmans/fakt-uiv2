@@ -57,4 +57,23 @@ export class EventService {
 
     return sub;
   }
+
+  getEventTags(): Observable<Object[]> {
+
+    let params = new URLSearchParams();
+    params.set("with_events", "true");
+
+    let sub = this.http
+      .get('/api/v1/tag', {search: params})
+      .map((r: Response) => r.json().payload)
+      .catch(r => {
+        let err = r.error || r;
+        this.notifications.addNotification('alert-danger', err);
+        return Observable.empty();
+      })
+      .share();
+    this.loading.observe(sub);
+
+    return sub;
+  }
 }

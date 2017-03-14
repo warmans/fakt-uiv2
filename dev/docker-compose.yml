@@ -1,0 +1,9 @@
+version: "2"
+services:
+  api:
+    image: warmans/fakt-api:3.0.0
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/opt/fakt-api/db:/opt/fakt-api/db"
+      - "/opt/fakt-api/static:/opt/fakt-api/static"

@@ -18,6 +18,11 @@ build:
 build-ui: 
 	cd ui; ng build --prod --aot
 
+.PHONY: run
+run:
+	# start docker compose in dev dir first
+	cd ui; npm start
+
 # Packaging
 #-----------------------------------------------------------------------
 
