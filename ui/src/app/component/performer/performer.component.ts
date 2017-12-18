@@ -4,6 +4,7 @@ import {Performer} from "../../entity/performer";
 import {Event} from "../../entity/event";
 import {PerformerService} from "../../service/performer/performer.service";
 import {Observable} from "rxjs";
+import {LoadingService} from "../../service/loading/loading.service";
 
 @Component({
   selector: 'app-performer',
@@ -16,7 +17,10 @@ export class PerformerComponent implements OnInit {
 
   events: Observable<Event[]>;
 
-  constructor(private route: ActivatedRoute, private perfomerService: PerformerService) {
+  constructor(
+    private route: ActivatedRoute,
+    private perfomerService: PerformerService,
+    public loadingService: LoadingService) {
   }
 
   ngOnInit() {

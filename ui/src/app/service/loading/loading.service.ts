@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 @Injectable()
 export class LoadingService {
@@ -8,15 +8,17 @@ export class LoadingService {
 
   private observed: Observable<any>[] = [];
 
-  constructor() { }
+  constructor() {
+  }
 
   observe(sub: Observable<any>) {
     if (this.observed.indexOf(sub) !== -1) {
       return;
     }
     // consider observable complete on the first event
-    sub.subscribe(() => this.unobserve(sub));
-    // allow multiple observables 
+    sub.subscribe(() => this.unobserve(sub), () => this.unobserve(sub));
+
+    // allow multiple observables
     this.observed.push(sub);
     this.checkLoading();
   }

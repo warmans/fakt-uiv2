@@ -1,39 +1,34 @@
 import {Injectable} from '@angular/core';
-import {Http, URLSearchParams, Response} from '@angular/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Event} from '../../entity/event';
 import {Observable} from 'rxjs';
+import {NotificationService} from '../notification/notification.service';
+import {LoadingService} from '../loading/loading.service';
 
-import {NotificationService} from './../notification/notification.service';
-import {LoadingService} from './../loading/loading.service';
-
+import {map} from 'rxjs/operators'
 
 @Injectable()
 export class EventService {
 
-  constructor(private http: Http,
+  constructor(private http: HttpClient,
               private notifications: NotificationService,
               private loading: LoadingService,) {
   }
 
-  getEvents(query: {[key: string]: string}): Observable<Event[]> {
+  getEvents(query: { [key: string]: string }): Observable<Event[]> {
 
-    let params = new URLSearchParams();
-
+    let params = new HttpParams();
     for (let key in query) {
       if (query.hasOwnProperty(key)) {
-        params.set(key, query[key]);
+        params = params.set(key, query[key]);
       }
     }
 
     let sub = this.http
-      .get('/api/v1/event', {search: params})
-      .map((r: Response) => Event.fromObjects(r.json().payload))
-      .catch(r => {
-        let err = r.error || r;
-        this.notifications.addNotification('alert-danger', err);
-        return Observable.empty();
-      })
-      .share();
+      .get('/api/v1/event', {params: params})
+      .pipe(
+        map((r: any) => Event.fromObjects(r.payload))
+      );
     this.loading.observe(sub);
 
     return sub;
@@ -41,39 +36,31 @@ export class EventService {
 
   getSimilarEvents(eventID: string): Observable<Event[]> {
 
-    let params = new URLSearchParams();
-    params.set("page_size", "5");
+    let params = new HttpParams();
+    params = params.set("page_size", "5");
 
     let sub = this.http
-      .get('/api/v1/event/'+eventID+"/similar", {search: params})
-      .map((r: Response) => Event.fromObjects(r.json().payload))
-      .catch(r => {
-        let err = r.error || r;
-        this.notifications.addNotification('alert-danger', err);
-        return Observable.empty();
-      })
-      .share();
-    this.loading.observe(sub);
+      .get('/api/v1/event/' + eventID + "/similar", {params: params})
+      .pipe(
+        map((r: any) => Event.fromObjects(r.payload)),
+      );
 
+    this.loading.observe(sub);
     return sub;
   }
 
   getEventTags(): Observable<Object[]> {
 
-    let params = new URLSearchParams();
-    params.set("with_events", "true");
+    let params = new HttpParams();
+    params = params.set("with_events", "true");
 
     let sub = this.http
-      .get('/api/v1/tag', {search: params})
-      .map((r: Response) => r.json().payload)
-      .catch(r => {
-        let err = r.error || r;
-        this.notifications.addNotification('alert-danger', err);
-        return Observable.empty();
-      })
-      .share();
-    this.loading.observe(sub);
+      .get('/api/v1/tag', {params: params})
+      .pipe(
+        map((r: any) => Event.fromObjects(r.payload))
+      );
 
+    this.loading.observe(sub);
     return sub;
   }
 }

@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from './../../service/user/user.service';
-import {User} from './../../entity/user';
-import {NotificationService} from './../../service/notification/notification.service';
-import {LoadingService} from './../../service/loading/loading.service';
+import {NotificationService} from '../../service/notification/notification.service';
+import {LoadingService} from '../../service/loading/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -11,18 +9,14 @@ import {LoadingService} from './../../service/loading/loading.service';
 })
 export class AppComponent implements OnInit {
 
-  me: User;
+  public showLoading = false;
 
-  constructor(private userService: UserService,
-              private notificationService: NotificationService,
-              private loadingService: LoadingService) {
+  constructor(private notificationService: NotificationService, private loadingService: LoadingService) {
   }
 
   ngOnInit() {
-    this.userService.refreshMe();
-  }
-
-  logout() {
-    this.userService.logout();
+    this.loadingService.isLoading.asObservable().subscribe((isLoading: boolean) => {
+      this.showLoading = isLoading;
+    });
   }
 }

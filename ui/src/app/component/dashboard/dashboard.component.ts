@@ -2,8 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {EventService} from "../../service/event/event.service";
 import {Event} from '../../entity/event';
 
-import {Router, ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
+import {LoadingService} from "../../service/loading/loading.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -12,13 +13,17 @@ import {Observable} from "rxjs";
 })
 export class DashboardComponent implements OnInit {
 
-  query: {[key: string]: string} = {};
+  query: { [key: string]: string } = {};
 
   eventKeyword: string;
 
   events: Observable<Event[]>;
 
-  constructor(private route: ActivatedRoute, private router: Router, private eventService: EventService) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private eventService: EventService,
+    public loadingService: LoadingService) {
   }
 
   ngOnInit() {
@@ -30,7 +35,7 @@ export class DashboardComponent implements OnInit {
     this.mergeQueryData({"page": String(page)}, false);
   }
 
-  mergeQueryData(query: {[key: string]: string}, resetOffset: boolean) {
+  mergeQueryData(query: { [key: string]: string }, resetOffset: boolean) {
     let newQuery = {};
     for (let key in this.query) {
       if (this.query.hasOwnProperty(key)) {
@@ -52,10 +57,10 @@ export class DashboardComponent implements OnInit {
   }
 
   getCurrentPage(): number {
-      if (this.query["page"] != undefined) {
-        return Number(this.query["page"]);
-      }
-      return 1;
+    if (this.query["page"] != undefined) {
+      return Number(this.query["page"]);
+    }
+    return 1;
   }
 
   refreshData() {

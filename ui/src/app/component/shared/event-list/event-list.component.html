@@ -3,11 +3,11 @@
 </div>
 
 <div *ngIf="enablePagination" class="d-flex justify-content-between m-t-2">
-    <button (click)="prevPage()" class="btn" aria-label="Previous" [disabled]="curPage <= 1">
+    <button (click)="prevPage()" class="btn btn-dark" aria-label="Previous" [disabled]="curPage <= 1">
       &laquo; Prev
     </button>
 
-    <button (click)="nextPage()" class="btn" aria-label="Next">
+    <button (click)="nextPage()" class="btn btn-dark" aria-label="Next">
       Next &raquo;
     </button>
 </div>

@@ -23,6 +23,11 @@ run:
 	# start docker compose in dev dir first
 	cd ui; npm start
 
+.PHONY: run_prod_api
+run_prod_api:
+	cd ui; node_modules/.bin/ng serve -pc proxy.prod.conf.json
+
+
 # Packaging
 #-----------------------------------------------------------------------
 
