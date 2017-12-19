@@ -1,17 +1,17 @@
 import {Component, OnInit} from '@angular/core';
-import {EventService} from '../../service/event/event.service';
-import {Event} from '../../entity/event';
+import {EventService} from '../../../service/event/event.service';
+import {Event} from '../../../entity/event';
 
 import {ActivatedRoute, Router} from '@angular/router';
 import {Observable} from 'rxjs';
-import {LoadingService} from '../../service/loading/loading.service';
+import {LoadingService} from '../../../service/loading/loading.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-index',
+  templateUrl: './index.component.html',
+  styleUrls: ['./index.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class IndexComponent implements OnInit {
 
   query: { [key: string]: string } = {};
 
@@ -57,7 +57,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getCurrentPage(): number {
-    if (this.query['page'] != undefined) {
+    if (this.query['page'] !== undefined) {
       return Number(this.query['page']);
     }
     return 1;

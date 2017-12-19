@@ -12,7 +12,7 @@ export class EventCompactListComponent implements OnInit {
   events: Event[]
 
   @Input()
-  listTitle: string = "Similar Events"
+  listTitle = 'Similar Events'
 
   constructor() { }
 

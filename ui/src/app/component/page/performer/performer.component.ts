@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from "@angular/router";
-import {Performer} from "../../entity/performer";
-import {Event} from "../../entity/event";
-import {PerformerService} from "../../service/performer/performer.service";
-import {Observable} from "rxjs";
-import {LoadingService} from "../../service/loading/loading.service";
+import {ActivatedRoute, Params} from '@angular/router';
+import {Performer} from '../../../entity/performer';
+import {Event} from '../../../entity/event';
+import {PerformerService} from '../../../service/performer/performer.service';
+import {Observable} from 'rxjs';
+import {LoadingService} from '../../../service/loading/loading.service';
 
 @Component({
   selector: 'app-performer',

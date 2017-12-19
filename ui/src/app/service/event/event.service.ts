@@ -37,10 +37,10 @@ export class EventService {
   getSimilarEvents(eventID: string): Observable<Event[]> {
 
     let params = new HttpParams();
-    params = params.set("page_size", "5");
+    params = params.set('page_size', '5');
 
     let sub = this.http
-      .get('/api/v1/event/' + eventID + "/similar", {params: params})
+      .get('/api/v1/event/' + eventID + '/similar', {params: params})
       .pipe(
         map((r: any) => Event.fromObjects(r.payload)),
       );
@@ -52,7 +52,7 @@ export class EventService {
   getEventTags(): Observable<Object[]> {
 
     let params = new HttpParams();
-    params = params.set("with_events", "true");
+    params = params.set('with_events', 'true');
 
     let sub = this.http
       .get('/api/v1/tag', {params: params})

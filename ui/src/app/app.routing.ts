@@ -1,9 +1,9 @@
 import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
-import {DashboardComponent} from './component/dashboard/dashboard.component';
-import {VenuesComponent} from './component/venues/venues.component';
-import {EventComponent} from './component/event/event.component';
-import {PerformerComponent} from "./component/performer/performer.component";
+import {IndexComponent} from './component/page/index/index.component';
+import {VenuesComponent} from './component/page/venues/venues.component';
+import {EventComponent} from './component/page/event/event.component';
+import {PerformerComponent} from './component/page/performer/performer.component';
 
 export const appRoutes: Routes = [
   {
@@ -13,7 +13,7 @@ export const appRoutes: Routes = [
   },
   {
     path: 'browse',
-    component: DashboardComponent,
+    component: IndexComponent,
 
   }, {
     path: 'venues',
@@ -25,7 +25,7 @@ export const appRoutes: Routes = [
     path: 'performer/:id',
     component: PerformerComponent,
   }, {
-    path: "**",
+    path: '**',
     redirectTo: '/browse',//todo: 404 page?
   }
 ];

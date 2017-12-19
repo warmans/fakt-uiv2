@@ -3,7 +3,7 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/do';
-import {NotificationService} from "../service/notification/notification.service";
+import {NotificationService} from '../service/notification/notification.service';
 
 @Injectable()
 export class APIErrorInterceptor implements HttpInterceptor {
@@ -18,7 +18,8 @@ export class APIErrorInterceptor implements HttpInterceptor {
       (evt: any) => {},
       (err: any) => {
         if (err instanceof HttpErrorResponse) {
-          let msg = err.error || err.message || "unknown error";
+          console.log(err);
+          let msg = err.message || 'Unknown error';
           this.notifications.addNotification('alert-danger', msg);
           return Observable.throw(err);
         }
