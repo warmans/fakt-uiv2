@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
 
   public showLoading = false;
 
-  constructor(private notificationService: NotificationService, private loadingService: LoadingService) {
+  constructor(public notificationService: NotificationService, private loadingService: LoadingService) {
   }
 
   ngOnInit() {

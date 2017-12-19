@@ -1,6 +1,6 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {Observable, Subject} from "rxjs";
-import {EventService} from "../../../service/event/event.service";
+import {Observable, Subject} from 'rxjs';
+import {EventService} from '../../../service/event/event.service';
 
 @Component({
   selector: 'app-simple-event-search',
@@ -18,13 +18,13 @@ export class SimpleEventSearchComponent implements OnInit {
   @Output()
   onKeywordUpdate = new EventEmitter<string>();
 
-  private keywordDebouncer: Subject<any> = new Subject();
+  keywordDebouncer: Subject<any> = new Subject();
 
-  private keyword: string;
+  keyword: string;
 
-  private query: {[key: string]: string} = {};
+  query: {[key: string]: string} = {};
 
-  private tags: Observable<Object[]>;
+  tags: Observable<Object[]>;
 
   constructor(private eventService: EventService) {
   }
@@ -37,18 +37,18 @@ export class SimpleEventSearchComponent implements OnInit {
       }
     }
 
-    //set some defaults
-    if (this.query['date_relative'] == undefined) {
-      this.query['date_relative'] = "";
+    // set some defaults
+    if (this.query['date_relative'] === undefined) {
+      this.query['date_relative'] = '';
     }
-    if (this.query['tag'] == undefined) {
-      this.query['tag'] = "";
+    if (this.query['tag'] === undefined) {
+      this.query['tag'] = '';
     }
 
-    //setup keyword debounce
+    // setup keyword debounce
     this.keywordDebouncer.debounceTime(500).subscribe((val) => this.onKeywordUpdate.emit(val));
 
-    //get available tags
+    // get available tags
     this.tags = this.eventService.getEventTags();
   }
 

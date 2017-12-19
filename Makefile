@@ -16,7 +16,7 @@ build:
 
 .PHONY: build-ui
 build-ui: 
-	cd ui; ng build --prod --aot
+	cd ui; node_modules/.bin/ng build --prod --aot
 
 .PHONY: run
 run:
